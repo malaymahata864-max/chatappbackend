@@ -1,0 +1,11 @@
+const express=require("express");
+const Router=express.Router();
+const {registerUser,loginUser,logoutUser,updateUser,getProfile}=require("../controllers/authController");
+const {isLoggedIn}=require("../middlewares/isLoggedIn");
+const storage=require("../middlewares/multer");
+Router.post("/signup",registerUser);
+Router.post("/login",loginUser);
+Router.post("/logout",isLoggedIn,logoutUser);
+Router.put("/update",isLoggedIn,storage().single('image'),updateUser);
+Router.get("/profile",isLoggedIn,getProfile);
+module.exports=Router;
