@@ -91,7 +91,7 @@ const updateUser = async (req, res) => {
     try {
         
         const userId = req.userId;
-
+        const {fullName} = req.body;
         const user = await User.findById(userId);
         if (!user) {
             return res.status(400).json({ message: "User does not exist" });
@@ -99,7 +99,9 @@ const updateUser = async (req, res) => {
 
        
 
-        
+        if (fullName) {
+            user.fullName = fullName;
+        }
         if (req.file) {
             const imageUrl = await uploadOnCloudinary(req.file);
             user.profilePic = imageUrl;
