@@ -1,7 +1,7 @@
 const express=require("express");
 const dotenv=require("dotenv");
 dotenv.config();
-const connectDB=require("./config/databaseconfig");
+const connectDB=require("./config/databaseConfig");
 connectDB();
 const connectCloudinary=require("./config/cloudinaryConfig");
 connectCloudinary();
