@@ -10,9 +10,7 @@ const msgRoutes=require("./routes/msgRoutes");
 const cookieParser=require("cookie-parser");
 const cors=require("cors");
 const allowedOrigins = (process.env.FRONTEND_URL || "")
-    .split(",")
-    .map((origin) => origin.trim().replace(/\/$/, ""))
-    .filter(Boolean);
+    
 const corsOptions={
     origin: allowedOrigins.length ? allowedOrigins : true,
     credentials:true,
