@@ -23,7 +23,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended:true}));
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 app.use("/api/auth",authRoutes);
 app.use("/api/messages",msgRoutes);
 const port=process.env.PORT || 5000;
