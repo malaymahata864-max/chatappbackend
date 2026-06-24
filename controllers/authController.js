@@ -17,6 +17,9 @@ const registerUser = async (req, res) => {
         if (!fullName || !email || !password) {
             return res.status(400).json({ message: "Please provide all required fields" });
         }
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters long" });
+        }
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "User already exists" });
@@ -50,6 +53,9 @@ const loginUser = async (req, res) => {
         const { email, password } = req.body;
         if (!email || !password) {
             return res.status(400).json({ message: "Please provide all required fields" });
+        }
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters long" });
         }
         const user = await User.findOne({ email });
         if (!user) {
