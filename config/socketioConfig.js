@@ -3,12 +3,17 @@ const { Server } = require('socket.io');
 const http = require('http');
 const express = require('express');
 
+const allowedOrigins = (process.env.FRONTEND_URL || "")
+    .split(",")
+    .map((origin) => origin.trim().replace(/\/$/, ""))
+    .filter(Boolean);
+
 const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: process.env.FRONTEND_URL || "*",
+        origin: allowedOrigins.length ? allowedOrigins : true,
         credentials: true
     }
 });

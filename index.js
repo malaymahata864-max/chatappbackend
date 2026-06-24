@@ -9,8 +9,12 @@ const authRoutes=require("./routes/authRoutes");
 const msgRoutes=require("./routes/msgRoutes");
 const cookieParser=require("cookie-parser");
 const cors=require("cors");
+const allowedOrigins = (process.env.FRONTEND_URL || "")
+    .split(",")
+    .map((origin) => origin.trim().replace(/\/$/, ""))
+    .filter(Boolean);
 const corsOptions={
-    origin:process.env.FRONTEND_URL,
+    origin: allowedOrigins.length ? allowedOrigins : true,
     credentials:true,
 
 }
@@ -19,6 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended:true}));
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use("/api/auth",authRoutes);
 app.use("/api/messages",msgRoutes);
 const port=process.env.PORT || 5000;
